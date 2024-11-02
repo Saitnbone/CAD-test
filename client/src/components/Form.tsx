@@ -7,6 +7,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
+import { useState } from "react";
+import { submitContactForm } from "../api/api";
 
 interface IFormInput {
   name: string;
@@ -23,6 +25,9 @@ const validation = Yup.object({
 });
 
 export const ContactForm: React.FC = () => {
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -32,8 +37,15 @@ export const ContactForm: React.FC = () => {
     mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    try {
+      const response = await submitContactForm(data);
+      setSuccess(`Спасибо за ваше сообщение, ${response.name}!`);
+      setError(null); 
+    } catch (error) {
+      setError("Произошла ошибка при отправке сообщения. Попробуйте еще раз.");
+      setSuccess(null);
+    }
   };
 
   return (
@@ -87,6 +99,9 @@ export const ContactForm: React.FC = () => {
       >
         Submit
       </Button>
+
+      {success && <p style={{ color: "green" }}>{success}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </Box>
   );
 };

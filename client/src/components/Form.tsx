@@ -9,6 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import { useState } from "react";
 import { submitContactForm } from "../api/api";
+import { useNavigate } from "react-router-dom";
 
 interface IFormInput {
   name: string;
@@ -17,7 +18,12 @@ interface IFormInput {
 }
 
 const validation = Yup.object({
-  name: Yup.string().required("Обязательное поле для заполнения"),
+  name: Yup.string()
+    .matches(
+      /^[A-Za-zА-Яа-яЁё -]+$/,
+      "Можно использовать только латиницу, кириллицу и знак '-'"
+    )
+    .required("Обязательное поле для заполнения"),
   email: Yup.string()
     .email("Адрес почты указан неверно")
     .required("Обязательное поле для заполнения"),
@@ -25,6 +31,7 @@ const validation = Yup.object({
 });
 
 export const ContactForm: React.FC = () => {
+  const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -41,7 +48,8 @@ export const ContactForm: React.FC = () => {
     try {
       const response = await submitContactForm(data);
       setSuccess(`Спасибо за ваше сообщение, ${response.name}!`);
-      setError(null); 
+      setError(null);
+      navigate("/generate");
     } catch (error) {
       setError("Произошла ошибка при отправке сообщения. Попробуйте еще раз.");
       setSuccess(null);
@@ -94,8 +102,8 @@ export const ContactForm: React.FC = () => {
         color="primary"
         variant="contained"
         fullWidth
-        type="submit"
         disabled={!isValid}
+        onClick={handleSubmit(onSubmit)}
       >
         Submit
       </Button>

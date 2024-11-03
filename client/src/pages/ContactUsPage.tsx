@@ -19,8 +19,9 @@ export const ContactPage: React.FC = () => {
         variant="h1"
         component="h1"
         sx={{
-          fontSize: "clamp(3rem, 2.1549rem + 4.2254vw, 6rem)",
           textAlign: "center",
+          fontWeight: "bold",
+          fontSize: "clamp(3rem, 2.1549rem + 4.2254vw, 6rem)",
         }}
       >
         Only CTA on the page

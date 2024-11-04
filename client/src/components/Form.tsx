@@ -9,12 +9,15 @@ import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import { useState } from "react";
 import { submitContactForm } from "../api/api";
-import { useNavigate } from "react-router-dom";
 
 interface IFormInput {
   name: string;
   email: string;
   message: string;
+}
+
+interface IFormProps {
+  setIsSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const validation = Yup.object({
@@ -30,8 +33,7 @@ const validation = Yup.object({
   message: Yup.string().required("Обязательное поле для заполнения"),
 });
 
-export const ContactForm: React.FC = () => {
-  const navigate = useNavigate();
+export const ContactForm: React.FC<IFormProps> = ({ setIsSubmitted }) => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -48,8 +50,8 @@ export const ContactForm: React.FC = () => {
     try {
       const response = await submitContactForm(data);
       setSuccess(`Спасибо за ваше сообщение, ${response.name}!`);
+      setIsSubmitted(true);
       setError(null);
-      navigate("/generate");
     } catch (error) {
       setError("Произошла ошибка при отправке сообщения. Попробуйте еще раз.");
       setSuccess(null);
@@ -62,13 +64,27 @@ export const ContactForm: React.FC = () => {
       sx={{
         border: "1px solid",
         borderRadius: "10px",
-        maxWidth: "400px",
+        maxWidth: "320px",
         padding: "20px",
       }}
       onSubmit={handleSubmit(onSubmit)}
     >
       <FormControl fullWidth margin="normal" sx={{ mb: 1 }}>
-        <TextField label="Name" {...register("name")} error={!!errors.name} />
+        <TextField
+          label="Name"
+          {...register("name")}
+          error={!!errors.name}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "&:hover fieldset": {
+                borderColor: "blue",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "purple",
+              },
+            },
+          }}
+        />
         <FormHelperText error={!!errors.name} sx={{ minHeight: "1.7em" }}>
           {errors.name?.message}
         </FormHelperText>
@@ -79,6 +95,16 @@ export const ContactForm: React.FC = () => {
           label="Email"
           {...register("email")}
           error={!!errors.email}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "&:hover fieldset": {
+                borderColor: "blue",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "purple",
+              },
+            },
+          }}
         />
         <FormHelperText error={!!errors.email} sx={{ minHeight: "1.7em" }}>
           {errors.email?.message}
@@ -92,6 +118,16 @@ export const ContactForm: React.FC = () => {
           error={!!errors.message}
           multiline
           rows={4}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "&:hover fieldset": {
+                borderColor: "blue",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "purple",
+              },
+            },
+          }}
         />
         <FormHelperText error={!!errors.message} sx={{ minHeight: "1.7em" }}>
           {errors.message?.message}
@@ -107,7 +143,6 @@ export const ContactForm: React.FC = () => {
       >
         Submit
       </Button>
-
       {success && <p style={{ color: "green" }}>{success}</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
     </Box>

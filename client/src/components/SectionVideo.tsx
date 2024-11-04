@@ -1,5 +1,6 @@
 import Grid2 from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 export const VideoSection = () => {
   return (
@@ -8,17 +9,28 @@ export const VideoSection = () => {
       sx={{
         marginBlockStart: "30px",
         backgroundColor: "#adadad",
-        padding: "40px",
+        padding: "20px",
       }}
     >
       <Grid2 container spacing={2}>
         <Grid2 size={{ xs: 12, md: 6 }}>
           <div>
-            <h1>Самый-самый важный текст</h1>
+            <Typography
+              variant="h1"
+              component="h1"
+              sx={{
+                fontFamily: "Inter, system-ui, Avenir, Helvetica, Arial, sans-serif",
+                fontWeight: "bold",
+                fontSize: "clamp(2rem, 1.7183rem + 1.4085vw, 3rem)",
+              }}
+            >
+              Самый-самый важный текст
+            </Typography>
+
             <Box
               component="p"
               sx={{
-                fontSize: "clamp(0.875rem, 0.7813rem + 0.4688vw, 1.25rem);",
+                fontSize: "clamp(0.85rem, 0.7373rem + 0.5634vw, 1.25rem)",
               }}
             >
               Здесь написан какой-то очень интересный текст, хотя вряд ли кто то
@@ -28,10 +40,10 @@ export const VideoSection = () => {
           </div>
         </Grid2>
         <Grid2 size={{ xs: 12, md: 6 }}>
-        <Box
+          <Box
             sx={{
               position: "relative",
-              paddingTop: "56.25%", // Соотношение сторон 16:9
+              paddingTop: "56.25%", 
               overflow: "hidden",
             }}
           >

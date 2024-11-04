@@ -1,8 +1,12 @@
 import { Typography } from "@mui/material";
 import { ContactForm } from "../components/Form";
 import Box from "@mui/material/Box";
+import { useState } from "react";
+import { ConfirmMessage } from "../components/ConfirmMessage";
 
 export const ContactPage: React.FC = () => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   return (
     <Box
       component="main"
@@ -21,12 +25,12 @@ export const ContactPage: React.FC = () => {
         sx={{
           textAlign: "center",
           fontWeight: "bold",
-          fontSize: "clamp(3rem, 2.1549rem + 4.2254vw, 6rem)",
+          fontSize: "clamp(2rem, 1.7183rem + 1.4085vw, 3rem)",
         }}
       >
         Only CTA on the page
       </Typography>
-      <ContactForm />
+      {isSubmitted ? <ConfirmMessage/> : <ContactForm setIsSubmitted={setIsSubmitted}/>}
     </Box>
   );
 };

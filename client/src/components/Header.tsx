@@ -1,8 +1,7 @@
 import React from "react";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { Logo } from "./Logo";
-import { Link } from "react-router-dom";
+import { ContactUs } from "./ContactUs";
 
 export const Header: React.FC = () => {
   return (
@@ -19,9 +18,7 @@ export const Header: React.FC = () => {
         }}
       >
         <Logo />
-        <Link to="/contact">
-          <Button color="inherit">Contact us</Button>
-        </Link>
+        <ContactUs />
       </Box>
     </Box>
   );

@@ -15,7 +15,7 @@ export const TitlesSection: React.FC = () => {
         component="h2"
         sx={{
           fontFamily: "Inter, system-ui, Avenir, Helvetica, Arial, sans-serif",
-          fontSize: "36px",
+          fontSize: "clamp(1.45rem, 1.2246rem + 1.1268vw, 2.25rem)",
           fontWeight: "bold",
           textAlign: "center",
         }}

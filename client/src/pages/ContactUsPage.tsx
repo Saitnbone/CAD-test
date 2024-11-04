@@ -1,11 +1,16 @@
-import { Typography } from "@mui/material";
+import React, { useState } from "react";
 import { ContactForm } from "../components/Form";
-import Box from "@mui/material/Box";
-import { useState } from "react";
 import { ConfirmMessage } from "../components/ConfirmMessage";
+import Box from "@mui/material/Box";
 
 export const ContactPage: React.FC = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [serverMessage, setServerMessage] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
+  const handleFormSubmit = (message: string) => {
+    setServerMessage(message);
+    setIsSubmitted(true);
+  };
 
   return (
     <Box
@@ -19,18 +24,14 @@ export const ContactPage: React.FC = () => {
         marginBlockStart: "30px",
       }}
     >
-      <Typography
-        variant="h1"
-        component="h1"
-        sx={{
-          textAlign: "center",
-          fontWeight: "bold",
-          fontSize: "clamp(2rem, 1.7183rem + 1.4085vw, 3rem)",
-        }}
-      >
-        Only CTA on the page
-      </Typography>
-      {isSubmitted ? <ConfirmMessage/> : <ContactForm setIsSubmitted={setIsSubmitted}/>}
+      {!isSubmitted ? (
+        <ContactForm
+          onSubmit={handleFormSubmit}
+          setIsSubmitted={setIsSubmitted}
+        />
+      ) : (
+        <ConfirmMessage message={serverMessage} />
+      )}
     </Box>
   );
 };

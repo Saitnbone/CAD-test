@@ -12,6 +12,10 @@ export const Footer = () => {
         justifyContent: "center",
         alignItems: "center",
         marginBlockStart: "30px",
+        position: "sticky",
+        bottom: 0,
+        backgroundColor: "white",
+        zIndex: 1000,
       }}
     >
       <Logo />

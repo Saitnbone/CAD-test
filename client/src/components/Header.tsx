@@ -5,7 +5,15 @@ import { ContactUs } from "./ContactUs";
 
 export const Header: React.FC = () => {
   return (
-    <Box component="header">
+    <Box
+      component="header"
+      sx={{
+        position: "sticky",
+        top: 0,
+        backgroundColor: "#ffffff",
+        zIndex: 10000
+      }}
+    >
       <Box
         component="div"
         sx={{

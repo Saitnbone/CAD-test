@@ -1,7 +1,12 @@
-import Typography from "@mui/material/Typography";
+import React from "react";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
-export const ConfirmMessage: React.FC = () => {
+interface ConfirmMessageProps {
+  message: string | null; 
+}
+
+export const ConfirmMessage: React.FC<ConfirmMessageProps> = ({ message }) => {
   return (
     <Box component="main">
       <Typography
@@ -14,7 +19,7 @@ export const ConfirmMessage: React.FC = () => {
           fontSize: "clamp(3rem, 2.1549rem + 4.2254vw, 6rem)",
         }}
       >
-        Message generated on the server
+        {message}
       </Typography>
     </Box>
   );

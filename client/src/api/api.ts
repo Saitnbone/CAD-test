@@ -1,8 +1,6 @@
 const API_URL = import.meta.env.VITE_SERVER_URL;
 
 export const submitContactForm = async (data: {
-  name: string;
-  email: string;
   message: string;
 }) => {
   try {
@@ -13,6 +11,7 @@ export const submitContactForm = async (data: {
       },
       body: JSON.stringify(data),
     });
+    console.log(data);
     return await res.json();
   } catch (error) {
     console.error("Submit error:", error);
